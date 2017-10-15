@@ -21,7 +21,7 @@ import cn.edu.gdmec.android.mobileguard.m2theftguard.utils.MD5Utils;
 public class HomeActivity extends AppCompatActivity {
     private GridView gv_home;
     private long mExitTime;
-//    存储手机密码的sp
+//    存储手机密码的sp  很厉害的样子
     private SharedPreferences msharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
