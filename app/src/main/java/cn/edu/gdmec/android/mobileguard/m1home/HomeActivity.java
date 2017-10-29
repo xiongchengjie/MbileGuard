@@ -1,5 +1,7 @@
 package cn.edu.gdmec.android.mobileguard.m1home;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,13 +18,19 @@ import cn.edu.gdmec.android.mobileguard.m1home.adapter.HomeAdaper;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.LostFindActivity;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.dialog.InterPasswordDialog;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.dialog.SetupPasswordDialog;
+import cn.edu.gdmec.android.mobileguard.m2theftguard.receiver.MyDeviceAdminReceiver;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.utils.MD5Utils;
 
 public class HomeActivity extends AppCompatActivity {
     private GridView gv_home;
     private long mExitTime;
-//    存储手机密码的sp  很厉害的样子
+    //    存储手机密码的sp
     private SharedPreferences msharedPreferences;
+    //设备管理员
+    private DevicePolicyManager policyManager;
+    //申请权限
+    private ComponentName componentName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +56,23 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+        //获取设备管理员
+        policyManager = (DevicePolicyManager)getSystemService(DEVICE_POLICY_SERVICE);
+        //本行代码需要“手机防盗模块”完成后才能启用
+        //2.申请权限，MyDeviceAdminReceiver继承自DeviceAdminReceiver
+        componentName = new ComponentName(this, MyDeviceAdminReceiver.class
+        );
+        //3.判断呢，如果没有权限则申请权限
+        boolean active = policyManager.isAdminActive(componentName);
+        if (!active){
+            ///没有管理员的权限，则获取管理员的权限
+            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,componentName);
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,"获取超级管理员的权限，用于远程锁屏和清除数据");
+            startActivity(intent);
+        }
     }
-//    intent=信使  启动新的活动并且传递信息
+    //    intent=信使  启动新的活动并且传递信息
     public void startActivity(Class<?> cls){
         Intent intent = new Intent(HomeActivity.this,cls);
         startActivity(intent);
@@ -69,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-//弹出设置密码对话框   本方法需要完成“手机防盗模块”之后才能启用
+    //弹出设置密码对话框   本方法需要完成“手机防盗模块”之后才能启用
     private void showSetUpPswdDialog(){
         final SetupPasswordDialog setupPasswordDialog = new SetupPasswordDialog(HomeActivity.this);
         setupPasswordDialog
@@ -85,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
                                 savePswd(affirmPwsd);
                                 setupPasswordDialog.dismiss();
                                 showInterPswdDialog();
-                            //*************
+                                //*************
                             }else{
                                 Toast.makeText(HomeActivity.this,"两次密码不一致!",Toast.LENGTH_LONG).show();
                             }
@@ -104,9 +127,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showInterPswdDialog(){
-    final String password = getPassword();
-    final InterPasswordDialog mInPswdDialog = new InterPasswordDialog(
-            HomeActivity.this);
+        final String password = getPassword();
+        final InterPasswordDialog mInPswdDialog = new InterPasswordDialog(
+                HomeActivity.this);
         mInPswdDialog.setMyCallBack(new InterPasswordDialog.MyCallBack() {
             @Override
             public void confirm() {
@@ -134,14 +157,14 @@ public class HomeActivity extends AppCompatActivity {
         mInPswdDialog.show();
     }
 
-//保存密码
+    //保存密码
     private void savePswd(String affirmPswd) {
         SharedPreferences.Editor edit = msharedPreferences.edit();
         edit.putString("PhoneAntiTheftPWD",MD5Utils.encode(affirmPswd));
         edit.commit();
     }
 
-//获取密码的方法...
+    //获取密码的方法...
     private String getPassword(){
         String password = msharedPreferences.getString("PhoneAntiTheftPWD",null);
         if(TextUtils.isEmpty(password)){
