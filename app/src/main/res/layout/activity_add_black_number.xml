@@ -4,29 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/titlebar"/>
+
     <EditText
         android:id="@+id/et_blacknumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/coner_white_rec"
         android:hint="请输入要添加的号码"
         android:inputType="phone"
         android:paddingLeft="5dp"
         android:textColor="@color/bright_purple"
-        android:textSize="16sp"
-        />
+        android:textSize="16sp" />
+
     <EditText
         android:id="@+id/et_blackname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/coner_white_rec"
         android:hint="请输入名称"
+        android:paddingLeft="5dp"
+        android:textColor="@color/bright_purple"
+        android:textSize="16sp"
+        />
+    <EditText
+        android:id="@+id/et_blacktype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/coner_white_rec"
+        android:hint="请输入类型"
         android:paddingLeft="5dp"
         android:textColor="@color/bright_purple"
         android:textSize="16sp"

@@ -7,6 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import cn.edu.gdmec.android.mobileguard.R;
@@ -28,6 +30,7 @@ public class BlackContactAdapte extends BaseAdapter {
         TextView mModeTV;
         View mContactImgv;
         View mDeleteView;
+        TextView mTypeTV;
     }
     public interface BlackConactCallBack{
         void DataSizeChanged();
@@ -67,14 +70,17 @@ public class BlackContactAdapte extends BaseAdapter {
             holder.mModeTV = (TextView) view.findViewById(R.id.tv_black_mode);
             holder.mContactImgv = view.findViewById(R.id.view_black_icon);
             holder.mDeleteView = view.findViewById(R.id.view_black_delete);
+            holder.mTypeTV = (TextView) view.findViewById(R.id.tv_black_type);
             view.setTag(holder);
         }else {
             holder = (ViewHolder) view.getTag();
         }
         holder.mNameTV.setText(contactInfos.get(position).contactName+"("+contactInfos.get(position).phoneNumber+")");
         holder.mModeTV.setText(contactInfos.get(position).getModeString(contactInfos.get(position).mode));
+        holder.mTypeTV.setText(contactInfos.get(position).type);
         holder.mNameTV.setTextColor(context.getResources().getColor(R.color.bright_purple));
         holder.mModeTV.setTextColor(context.getResources().getColor(R.color.bright_purple));
+        holder.mTypeTV.setTextColor(context.getResources().getColor(R.color.bright_purple));
         holder.mContactImgv.setBackgroundResource(R.drawable.brightpurple_contact_icon);
         holder.mDeleteView.setOnClickListener(new View.OnClickListener() {
             @Override

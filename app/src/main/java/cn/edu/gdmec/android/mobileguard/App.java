@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.text.style.TtsSpan;
 import android.util.Log;
 
 /**
@@ -28,7 +27,7 @@ public class App extends Application {
             String bindsim = sp.getString("sim","");
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             String realsim = tm.getSimSerialNumber();
-            realsim="999";
+
             if (bindsim.equals(realsim)){
                 Log.i("","sin卡未发生变化，还是您的手机");
             }else {

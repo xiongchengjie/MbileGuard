@@ -78,7 +78,7 @@
         <!--通讯卫士部分-->
         <activity android:name=".m3communicationguard.AddBlackNumberActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".m3communicationguard.SecurityPhoneActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+        <activity android:name=".m4appmanager.AppManagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <receiver
             android:name=".m3communicationguard.receiver.InterceptCallReciever"
             android:enabled="true"
