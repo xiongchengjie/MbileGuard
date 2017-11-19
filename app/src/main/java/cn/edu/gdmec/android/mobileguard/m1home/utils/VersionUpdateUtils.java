@@ -142,7 +142,7 @@ public class VersionUpdateUtils {
         builder.setMessage(versionEntity.description);
         builder.setCancelable(false);//设置不能被忽视
         builder.setIcon(R.mipmap.ic_launcher_round);
-        builder.setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("立刻升级", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                /* Log.d("Tag", "getCloudVersion 网络版本为: " + versionEntity.versioncode);
