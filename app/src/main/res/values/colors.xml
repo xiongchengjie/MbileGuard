@@ -15,7 +15,7 @@
     <color name="bright_yellow">#FEC425</color>
     <color name="transparent">#00000000</color>
     <!--手机杀毒模块用到的 2017.11.16-->
-    <color name="dark_gary">#ff999999</color>
+   <color name="dark_gary">#ff999999</color>
     <color name="bright_red">#F22723</color>
     <color name="white">#ffffff</color>
     <color name="blue">#2684DC</color>
@@ -23,4 +23,7 @@
     <!--缓存清理模块用到的 2017.11.20-->
     <color name="light_rose_red">#F73CA7</color>
     <color name="rose_red">#E72993</color>
+    <!--流量统计模块用到的-->
+    <color name="bright_green">#26E587</color>
+    <color name="light_green">#55DC28</color>
 </resources>
