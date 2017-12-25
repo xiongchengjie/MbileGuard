@@ -24,11 +24,13 @@ import cn.edu.gdmec.android.mobileguard.m3communicationguard.SecurityPhoneActivi
 import cn.edu.gdmec.android.mobileguard.m4appmanager.AppManagerActivity;
 import cn.edu.gdmec.android.mobileguard.m5virusscan.VirusScanActivity;
 import cn.edu.gdmec.android.mobileguard.m6cleancache.CacheClearListActivity;
+import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.TrafficMonitoringActivity;
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.AdvancedToolsActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private GridView gv_home;
     private long mExitTime;
-    //    存储手机密码的sp
+//    存储手机密码的sp
     private SharedPreferences msharedPreferences;
     //设备管理员
     private DevicePolicyManager policyManager;
@@ -68,6 +70,12 @@ public class HomeActivity extends AppCompatActivity {
                     case 4:
                         startActivity(CacheClearListActivity.class);
                         break;
+                    case 6:
+                        startActivity(TrafficMonitoringActivity.class);
+                        break;
+                    case 7:
+                        startActivity(AdvancedToolsActivity.class);
+                        break;
 
 
                 }
@@ -89,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-    //    intent=信使  启动新的活动并且传递信息
+//    intent=信使  启动新的活动并且传递信息
     public void startActivity(Class<?> cls){
         Intent intent = new Intent(HomeActivity.this,cls);
         startActivity(intent);
@@ -109,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    //弹出设置密码对话框   本方法需要完成“手机防盗模块”之后才能启用
+//弹出设置密码对话框   本方法需要完成“手机防盗模块”之后才能启用
     private void showSetUpPswdDialog(){
         final SetupPasswordDialog setupPasswordDialog = new SetupPasswordDialog(HomeActivity.this);
         setupPasswordDialog
@@ -125,7 +133,7 @@ public class HomeActivity extends AppCompatActivity {
                                 savePswd(affirmPwsd);
                                 setupPasswordDialog.dismiss();
                                 showInterPswdDialog();
-                                //*************
+                            //*************
                             }else{
                                 Toast.makeText(HomeActivity.this,"两次密码不一致!",Toast.LENGTH_LONG).show();
                             }
@@ -144,9 +152,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showInterPswdDialog(){
-        final String password = getPassword();
-        final InterPasswordDialog mInPswdDialog = new InterPasswordDialog(
-                HomeActivity.this);
+    final String password = getPassword();
+    final InterPasswordDialog mInPswdDialog = new InterPasswordDialog(
+            HomeActivity.this);
         mInPswdDialog.setMyCallBack(new InterPasswordDialog.MyCallBack() {
             @Override
             public void confirm() {
@@ -174,14 +182,14 @@ public class HomeActivity extends AppCompatActivity {
         mInPswdDialog.show();
     }
 
-    //保存密码
+//保存密码
     private void savePswd(String affirmPswd) {
         SharedPreferences.Editor edit = msharedPreferences.edit();
         edit.putString("PhoneAntiTheftPWD",MD5Utils.encode(affirmPswd));
         edit.commit();
     }
 
-    //获取密码的方法...
+//获取密码的方法...
     private String getPassword(){
         String password = msharedPreferences.getString("PhoneAntiTheftPWD",null);
         if(TextUtils.isEmpty(password)){

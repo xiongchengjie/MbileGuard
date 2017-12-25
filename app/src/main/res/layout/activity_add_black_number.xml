@@ -59,7 +59,8 @@
             android:layout_weight="1"
             android:button="@drawable/checkbox_selector"
             android:checked="true"
-            android:paddingLeft="40dp"
+            android:layout_margin="5dp"
+            android:paddingLeft="10dp"
             android:text="电话拦截"
             android:textColor="@color/bright_purple"
             android:scaleX="1.1"
@@ -72,7 +73,7 @@
             android:layout_weight="1"
             android:button="@drawable/checkbox_selector"
             android:checked="true"
-            android:paddingLeft="40dp"
+            android:paddingLeft="10dp"
             android:text="短信拦截"
             android:textColor="@color/bright_purple"
             android:scaleX="1.1"
@@ -84,7 +85,7 @@
         android:layout_width="170dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/add_btn_selector_securityphone"
         />
     <Button
@@ -92,7 +93,7 @@
         android:layout_width="170dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/add_fromcontact_btn_selector_securityphone"
         />
 </LinearLayout>

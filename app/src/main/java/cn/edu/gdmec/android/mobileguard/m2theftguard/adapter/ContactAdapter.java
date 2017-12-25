@@ -18,8 +18,9 @@ import cn.edu.gdmec.android.mobileguard.m2theftguard.entity.ContactInfo;
 
 public class ContactAdapter extends BaseAdapter {
     private List<ContactInfo> contactInfos;
+    static int count = 1;
     private Context context;
-    //    private TextView mNameTV;
+//    private TextView mNameTV;
 //    private TextView mPhoneTV;
     public ContactAdapter(List<ContactInfo> contactInfos,Context context){
         super();
@@ -29,11 +30,13 @@ public class ContactAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
+        Log.d("Tag", "getItem: ----------------系统调用getitem 集合长度为："+contactInfos.size());
         return contactInfos.size();
     }
 
     @Override
     public Object getItem(int position) {
+
         return contactInfos.get(position);
     }
 
@@ -44,6 +47,7 @@ public class ContactAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+        Log.d("Tag", "getView:  -----------------系统调用 "+(count++)+"次  然后集合长度为"+contactInfos.size());
         ViewHolder holder = null;
         if (view == null){
             view = View.inflate(context, R.layout.item_list_contact_select,null);

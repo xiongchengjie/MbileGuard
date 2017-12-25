@@ -75,7 +75,7 @@ public class InterceptCallReciever extends BroadcastReceiver {
             this.incomingNumber = mIncomingNumber;
             this.context = context;
         }
-        //观察数据库内容变化调用的方法
+//观察数据库内容变化调用的方法
         @Override
         public void onChange(boolean selfChange) {
             Log.i("CallLogObserver", "呼叫记录数据库的内容变化了");

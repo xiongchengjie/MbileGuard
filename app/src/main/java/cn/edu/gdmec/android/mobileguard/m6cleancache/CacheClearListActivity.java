@@ -163,7 +163,7 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
         animation.stop();
     }
 
-    private class MyPackObserver extends android.content.pm.IPackageStatsObserver.Stub{
+    private class MyPackObserver extends IPackageStatsObserver.Stub{
         private PackageInfo info;
         public MyPackObserver(PackageInfo info) {
             this.info = info;

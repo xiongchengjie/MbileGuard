@@ -100,7 +100,7 @@ public class AddBlackNumberActivity extends AppCompatActivity implements View.On
                         Toast.makeText(this, "该号码已经被添加至黑名单", Toast.LENGTH_SHORT).show();
                     }
                     finish();
-
+                    
                 }
                 break;
             case R.id.add_fromcontact_btn:

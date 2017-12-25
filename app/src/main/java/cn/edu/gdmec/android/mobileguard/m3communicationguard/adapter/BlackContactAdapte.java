@@ -76,6 +76,9 @@ public class BlackContactAdapte extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         holder.mNameTV.setText(contactInfos.get(position).contactName+"("+contactInfos.get(position).phoneNumber+")");
+
+
+
         holder.mModeTV.setText(contactInfos.get(position).getModeString(contactInfos.get(position).mode));
         holder.mTypeTV.setText(contactInfos.get(position).type);
         holder.mNameTV.setTextColor(context.getResources().getColor(R.color.bright_purple));

@@ -92,11 +92,11 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_manager);
-
         receciver = new UninstallRececiver();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addDataScheme("package");
         registerReceiver(receciver,intentFilter);
+
         initView();
     }
 
@@ -106,6 +106,7 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
         ((TextView)findViewById(R.id.tv_title)).setText("软件管家");
         mLeftImagv.setOnClickListener(this);
         mLeftImagv.setImageResource(R.drawable.back);
+
         mPhoneMemoryTV = (TextView) findViewById(R.id.tv_phonememory_appmanager);
         mSDMemoryTV = (TextView) findViewById(R.id.tv_sdmemory_appmanager);
         mAppNumTV = (TextView) findViewById(R.id.tv_appnumber);
@@ -145,6 +146,12 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
                     new Thread(){
                         @Override
                         public void run() {
+                            if(position ==0){
+                                //第0个位置显示的应该是 用户程序的个数的标签
+                                return;
+                            }else if (position == (userAppInfos.size()+1)){
+                                return;
+                            }
                             AppInfo mappInfo = (AppInfo) adapter.getItem(position);
                             boolean flag = mappInfo.isSelected;
                             for (AppInfo appInfo : userAppInfos){

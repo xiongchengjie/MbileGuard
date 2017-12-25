@@ -1,21 +1,37 @@
 package cn.edu.gdmec.android.mobileguard.m1home.utils;
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
+
+import cn.edu.gdmec.android.mobileguard.m5virusscan.utils.DownloadDbUtils;
 
 /**
  * Created by Administrator on 2017/9/17.
  */
 //下载的工具类
 public class DownloadUtils {
+    private Context context;
+    private DownloadCallback callbacl;
+    private BroadcastReceiver broadcastReceiver;
+    public DownloadUtils(Context context, DownloadCallback callbacl){
+        this.context = context;
+        this.callbacl = callbacl;
+
+    }
     /**
      * 下载akp的方法
      * @param url
      * @param targetFile
      * @param context
      */
+
     public void downloadApk(String url,String targetFile,Context context){
         //通过url获得系统下载管理   DownloadManager.Request用来请求一个下载
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
@@ -34,6 +50,27 @@ public class DownloadUtils {
         //获得系统的下载服务
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         long mTaskid = downloadManager.enqueue(request);
+        listener(mTaskid,targetFile);
+    }
+    private void listener(final long mTaskid, final String targetFile) {
+        IntentFilter intf = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1);
+                if (ID == mTaskid){
+                    Toast.makeText(context.getApplicationContext(), "下载编号："+mTaskid+"的"+targetFile+"下载完成", Toast.LENGTH_LONG).show();
+                    callbacl.afterDownload(targetFile);
+                }
+                context.unregisterReceiver(broadcastReceiver);
+
+            }
+        };
+        context.registerReceiver(broadcastReceiver,intf);
+
     }
 
+    public interface DownloadCallback{
+        void afterDownload(final String filename);
+    }
 }
